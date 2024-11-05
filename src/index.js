@@ -1,4 +1,4 @@
 import "./styles.css";
+import {} from "./todo";
+import {} from "./projects";
 
-
-console.log("Test");
