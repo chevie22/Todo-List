@@ -43,4 +43,184 @@
   */
   #root, #__next {
     isolation: isolate;
+}
+
+body{
+  background-color: rgb(0, 0, 0);
+}
+
+.container{
+  display: flex;
+}
+
+.container.todo{
+  width: 33%;
+  flex-direction: column;
+  margin: 2rem 0 2rem 1.5rem;
+  padding: 1rem 1.5rem;
+  font-family: "Roboto", sans-serif;
+  border-radius: 20px;
+  background: rgb(25, 25, 25);  
+}
+
+.container.todo:hover {
+  animation-name: hoverColor;
+  animation-duration: 0.15s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes hoverColor{
+  from {
+    background: rgb(25, 25, 25);
   }
+
+  to {
+    background: rgb(40, 40, 40);
+  }
+}
+
+.container.todo > * {
+  margin-bottom: 0.5rem;
+}
+
+.container.todoHeader {
+  justify-content: space-between;
+}
+
+.todoName {
+  font-weight: bold;
+  font-size: 1.7rem;
+  color: white;
+}
+
+.checkBoxButton {
+  border: 2px solid rgb(82, 82, 82);
+  height: 30px;
+  width: 30px;
+  border-radius: 10px;
+  margin-right: 0.5rem;
+  align-self: center;
+}
+
+.checkBoxButton:hover{
+  background-color: rgb(96, 96, 96);
+}
+
+.checkedSvg {
+  width: 100%; /* Set a fixed width for the image */
+  height: auto; /* Maintain the image aspect ratio */
+  animation: revealImageAnim 0.4s ease-in forwards; /* Apply the animation */
+  user-select: none;
+}
+
+/* Keyframe animation to reveal image */
+@keyframes revealImageAnim {
+  0% {
+    clip-path: inset(0 100% 0 0); /* Initially clip the image from the right */
+  }
+  100% {
+    clip-path: inset(0 0 0 0); /* Reveal the full image from left to right */
+  }
+}
+
+.todoDescription {
+  color: rgb(222, 222, 222);
+}
+
+.todoDate {
+  font-style: italic;
+  margin-top: 1rem;
+  color: rgb(113, 113, 113);
+  font-size: 0.9rem;
+}
+
+.container.button {
+  width: 35%;
+  /* min-width: 300px; */
+}
+
+.container.button > * {
+  flex: 1;
+  margin-right: 1rem;
+}
+
+.button.editTodo{
+  border: none;
+  border-radius: 10px;
+  color: white;
+  background-color: rgb(22, 72, 119);
+  padding: 0.3em 0;
+  margin-top: 0.3rem;
+}
+
+.button.editTodo:hover{
+  animation-name: hoverEditButtonColor;
+  animation-duration: 0.15s;
+  animation-fill-mode: forwards;
+}
+
+.button.editTodo:active{
+  animation-name: pressEditButton;
+  animation-duration: 0.1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes hoverEditButtonColor{
+  from {
+    background: rgb(22, 72, 119);
+  }
+
+  to {
+    background: rgb(56, 117, 174);
+  }
+}
+
+@keyframes pressEditButton{
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0.95);
+  }
+}
+
+
+.button.deleteTodo{
+  border: none;
+  border-radius: 10px;
+  color: white;
+  background-color: rgb(145, 0, 0);
+  padding: 0.3em 0;
+  margin-top: 0.3rem;
+}
+
+.button.deleteTodo:hover{
+  animation-name: hoverDeleteButtonColor;
+  animation-duration: 0.15s;
+  animation-fill-mode: forwards;
+}
+
+.button.deleteTodo:active{
+  animation-name: pressDeleteButton;
+  animation-duration: 0.1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes hoverDeleteButtonColor{
+  from {
+    background: rgb(145, 0, 0);
+  }
+
+  to {
+    background: rgb(188, 27, 27);
+  }
+}
+
+@keyframes pressDeleteButton{
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0.95);
+  }
+}

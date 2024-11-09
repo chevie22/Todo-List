@@ -1,6 +1,9 @@
 import { projectsList, Project } from "./projects";
+import { displayTodo } from "./display";
 window.toggleTodoComplete = toggleTodoComplete; // Makes function usable in browser console. wtf
 window.deleteTodo = deleteTodo;
+
+export let todoList = [];
 
 class Todo{
     constructor(name, description, dueDate, priority, projectName = "default"){
@@ -24,10 +27,37 @@ class Todo{
     }
 }
 
-function createTodo(name, description, dueDate, priority, projectName){
+export function createTodo(name, description, dueDate, priority, projectName){
     const newTodo = new Todo(name, description, dueDate, priority, projectName);
     const project = projectsList.find(project => project.name === newTodo.projectName);
     project.addTodo(newTodo);
+    todoList.push(newTodo);
+    console.log(todoList);
+    displayTodo();
+}
+
+export function deleteTodo(todoName){
+    let todoIndex = -1;
+
+    iterateProjects((project) =>{
+        todoIndex = project.todos.findIndex(todo => todo.name === todoName);
+
+        if(todoIndex >= 0){
+            console.log(`Found in Project: ${project.name} Index: ${todoIndex}`);
+            project.todos.splice(todoIndex, 1);
+            return;
+        }
+    });
+
+    const index = todoList.findIndex(obj => obj.name === todoName);
+    if(index !== -1){
+        todoList.splice(index, 1);
+    }
+
+    console.log(projectsList);
+    console.log(todoList);
+    
+    displayTodo();
 }
 
 function iterateProjects(onProject){
@@ -47,34 +77,11 @@ function getTodoObject(todoName){
     return selectedTodo;
 }
 
-export function deleteTodo(todoName){
-    let todoIndex = -1;
-
-    iterateProjects((project) =>{
-        todoIndex = project.todos.findIndex(todo => todo.name === todoName);
-
-        if(todoIndex >= 0){
-            console.log(`Found in Project: ${project.name} Index: ${todoIndex}`);
-            project.todos.splice(todoIndex, 1);
-            return;
-        }
-    });
-
-    console.log(projectsList);
-}
-
 export function toggleTodoComplete(todoName){
     let selectedTodo = getTodoObject(todoName);
     selectedTodo.isDone = !selectedTodo.isDone;
     console.log(selectedTodo);
 }
-
-createTodo("Clean Room", "Sweep the floor so it's not dirty xD", "8:00 PM", "normal");
-createTodo("Finish Code", "Finish ze code so Ms. Hope will not get angy", "10:00 PM", "normal");
-createTodo("Elloe", "Test", "7:00 PM", "normal", "Work Stuff");
-
-
-
 
 
 
