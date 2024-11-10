@@ -1,5 +1,6 @@
 export let projectsList = [];
 window.projectsList = projectsList;
+window.createProject = createProject;
 
 const todoAdder = {
     addTodo(todo){
@@ -16,10 +17,11 @@ export class Project{
 
 Object.assign(Project.prototype, todoAdder);
 
-function createProject(name){
+export function createProject(name){
     let newProject = new Project(name);
     projectsList.push(newProject);
 }
 
-createProject("default");
-console.log(projectsList);
+createProject('Unfiltered');
+createProject('Work Stuff');
+createProject('Tomfooleries Stuff Aaa');

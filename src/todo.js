@@ -6,8 +6,10 @@ window.deleteTodo = deleteTodo;
 
 export let todoList = [];
 
+window.todoList = todoList;
+
 class Todo{
-    constructor(name, description, dueDate, priority, projectName = "default"){
+    constructor(name, description, dueDate, priority, projectName = 'Unfiltered'){
         this.name = name;
         this.description = description;
         this.dueDate = dueDate;

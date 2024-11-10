@@ -53,10 +53,27 @@ body{
   display: flex;
 }
 
-.container.todo{
-  width: 33%;
+.container.project {
   flex-direction: column;
-  margin: 2rem 0 2rem 1.5rem;
+  width: 60vw;
+  border: solid 2px rgb(44, 44, 44);
+  border-radius: 10px;
+  color: white;
+  padding: 1rem 1.5rem;
+  font-family: "Rubik", sans-serif;
+  margin: 1rem 3rem;
+  justify-self: end;
+}
+
+.projectName {
+  letter-spacing: 0.1px;
+  font-size: 2rem;
+}
+
+.container.todo{
+  /* width: 33%; */
+  flex-direction: column;
+  margin: 0.6rem 0;
   padding: 1rem 1.5rem;
   font-family: "Roboto", sans-serif;
   font-weight: 400;
@@ -85,15 +102,20 @@ body{
 }
 
 .container.todoHeader {
-  justify-content: space-between;
+  /* justify-content: space-between; */
+}
+
+.container.todoHeader > *{
+  /* flex: 1; */
 }
 
 .todoName {
   font-family: "Rubik", sans-serif;
   font-weight: 400;
   font-size: 2rem;
-  color: rgb(176, 176, 176);
+  color: rgb(201, 201, 201);
   /* letter-spacing: 1.1px; */
+  flex: 1;
 }
 
 .checkBoxButton {
@@ -101,7 +123,7 @@ body{
   height: 30px;
   width: 30px;
   border-radius: 10px;
-  margin-right: 0.5rem;
+  margin-right: 1rem;
   align-self: center;
 }
 
@@ -126,20 +148,23 @@ body{
   }
 }
 
-.todoDate {
-  font-style: italic;
-  margin-top: -0.8rem;
-  color: rgb(145, 145, 145);
-  font-size: 0.9rem;
-  font-weight: 300;
-}
-
 .todoDescription {
   color: rgb(176, 176, 176);
   font-weight: 300;
-  margin-top: 0.5rem;
+  padding: 0 3rem;
+  /* margin-top: 0.5rem; */
 }
 
+.todoDate {
+  font-style: italic;
+  /* margin-top: -0.8rem; */
+  /* margin-top: 1rem; */
+  align-self: center;
+  color: rgb(145, 145, 145);
+  font-size: 0.9rem;
+  font-weight: 300;
+  margin-right: 1rem;
+}
 
 .container.button {
   width: 35%;
