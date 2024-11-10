@@ -1,5 +1,6 @@
 import { projectsList, Project } from "./projects";
 import { displayTodo } from "./display";
+window.createTodo = createTodo;
 window.toggleTodoComplete = toggleTodoComplete; // Makes function usable in browser console. wtf
 window.deleteTodo = deleteTodo;
 

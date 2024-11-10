@@ -59,6 +59,7 @@ body{
   margin: 2rem 0 2rem 1.5rem;
   padding: 1rem 1.5rem;
   font-family: "Roboto", sans-serif;
+  font-weight: 400;
   border-radius: 20px;
   background: rgb(25, 25, 25);  
 }
@@ -88,9 +89,11 @@ body{
 }
 
 .todoName {
-  font-weight: bold;
-  font-size: 1.7rem;
-  color: white;
+  font-family: "Rubik", sans-serif;
+  font-weight: 400;
+  font-size: 2rem;
+  color: rgb(176, 176, 176);
+  /* letter-spacing: 1.1px; */
 }
 
 .checkBoxButton {
@@ -109,7 +112,7 @@ body{
 .checkedSvg {
   width: 100%; /* Set a fixed width for the image */
   height: auto; /* Maintain the image aspect ratio */
-  animation: revealImageAnim 0.4s ease-in forwards; /* Apply the animation */
+  animation: revealImageAnim 0.3s ease-in forwards; /* Apply the animation */
   user-select: none;
 }
 
@@ -123,16 +126,20 @@ body{
   }
 }
 
-.todoDescription {
-  color: rgb(222, 222, 222);
-}
-
 .todoDate {
   font-style: italic;
-  margin-top: 1rem;
-  color: rgb(113, 113, 113);
+  margin-top: -0.8rem;
+  color: rgb(145, 145, 145);
   font-size: 0.9rem;
+  font-weight: 300;
 }
+
+.todoDescription {
+  color: rgb(176, 176, 176);
+  font-weight: 300;
+  margin-top: 0.5rem;
+}
+
 
 .container.button {
   width: 35%;

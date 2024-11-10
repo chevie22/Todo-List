@@ -1,7 +1,13 @@
 import { todoList } from "./todo";
+import { projectsList } from "./projects";
 import checkSVG from "./check-svgrepo-com.svg";
 
-export const displayTodo = () =>{
+export const displayProject = () => {
+  // MAKE PROJECTS!!!
+
+}
+
+export const displayTodo = () => {
     document.body.innerHTML = "";
 
     todoList.forEach((todo, index) => {
@@ -26,14 +32,14 @@ export const displayTodo = () =>{
             toggleCheck(e.target.closest('.checkBoxButton'));
           }
         });
+
+        const todoDate = document.createElement("div");
+        todoDate.classList.add("todoDate");
+        todoDate.innerHTML = `${todoList[index].dueDate}`;
     
         const todoDescription = document.createElement("div");
         todoDescription.classList.add("todoDescription");
         todoDescription.innerHTML = `${todoList[index].description}`;
-    
-        const todoDate = document.createElement("div");
-        todoDate.classList.add("todoDate");
-        todoDate.innerHTML = `${todoList[index].dueDate}`;
 
         const buttonContainer = document.createElement("div");
         buttonContainer.classList.add("container", "button");
@@ -58,8 +64,9 @@ export const displayTodo = () =>{
 
         newDiv.appendChild(todoHeaderContainer);
 
-        newDiv.appendChild(todoDescription);
         newDiv.appendChild(todoDate);
+
+        newDiv.appendChild(todoDescription);
 
         buttonContainer.appendChild(editButton);
         buttonContainer.appendChild(deleteButton);
