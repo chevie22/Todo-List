@@ -1,6 +1,7 @@
 import { todoList } from "./todo";
 import { projectsList } from "./projects";
-import checkSVG from "./check-svgrepo-com.svg";
+import checkSVG from "./svg/check-svgrepo-com.svg";
+import trashSVG from "./svg/trash-bin-trash-svgrepo-com.svg"
 
 export const displayProject = () => {
   // MAKE PROJECTS!!!
@@ -71,6 +72,18 @@ export const displayTodo = () => {
       todoDate.classList.add("todoDate");
       todoDate.innerHTML = `${todo.dueDate}`;
 
+      const trashImageDiv = document.createElement('div');
+      trashImageDiv.classList.add('container', 'trashImage');
+      trashImageDiv.addEventListener('click', (e) => {
+        alert('hi');
+      });
+
+      const trashImage = document.createElement("img");
+      trashImage.src = trashSVG;
+      trashImage.classList.add('trashSVG')
+
+      trashImageDiv.appendChild(trashImage);
+
       const buttonContainer = document.createElement("div");
       buttonContainer.classList.add("container", "button");
 
@@ -92,7 +105,7 @@ export const displayTodo = () => {
       todoHeaderContainer.appendChild(checkBoxContainer);
       todoHeaderContainer.appendChild(todoName);
       todoHeaderContainer.appendChild(todoDate);
-
+      todoHeaderContainer.appendChild(trashImageDiv);
 
       newDiv.appendChild(todoHeaderContainer);
 

@@ -3,8 +3,6 @@ import { displayTodo, displayProject } from "./display";
 import { createTodo, deleteTodo } from "./todo";
 import {} from "./projects";
 
-import checkSVG from "./check-svgrepo-com.svg";
-
 displayProject();
 
 createTodo("Clean Room", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi officiis debitis veritatis. Accusantium distinctio sapiente maxime ratione saepe! Reprehenderit recusandae fugit doloribus odit assumenda sed inventore exercitationem similique molestiae maiores?", "11/25/2024", "normal");
