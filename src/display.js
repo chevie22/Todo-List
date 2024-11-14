@@ -1,4 +1,4 @@
-import { todoList } from "./todo";
+import { todoList, deleteTodo } from "./todo";
 import { projectsList } from "./projects";
 import checkSVG from "./svg/check-svgrepo-com.svg";
 import trashSVG from "./svg/trash-bin-trash-svgrepo-com.svg"
@@ -43,7 +43,12 @@ const createTrashButton = () => {
   const trashImageDiv = createElement('div', ['container', 'trashImage']);
 
   trashImageDiv.addEventListener('click', (e) => {
-    alert('hi');
+    const clickedTodoName = e.target.closest('.container.trashImage')
+    .previousElementSibling 
+    .previousElementSibling 
+    .innerHTML; // this is so dumb
+
+    deleteTodo(clickedTodoName);
   });
 
   const trashImage = createElement('img', ['trashSVG']);
@@ -91,6 +96,7 @@ export const displayTodo = () => {
     projectContainer.innerHTML = '';
 
     project.todos.forEach((todo) => {
+
       const newDiv = createElement('div', ['container', 'todo']);
 
       const todoHeaderContainer = createElement('div', ['container', 'todoHeader']);
