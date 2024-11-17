@@ -1,5 +1,6 @@
-import { todoList, deleteTodo } from "./todo";
-import { projectsList } from "./projects";
+import { createTodo, deleteTodo, toggleTodoComplete } from "./todo";
+import { createProject, deleteProject, projectsList } from "./projects";
+import { SVGCode } from "./svg/plusSVG";
 import checkSVG from "./svg/check-svgrepo-com.svg";
 import trashSVG from "./svg/trash-bin-trash-svgrepo-com.svg"
 
@@ -23,21 +24,116 @@ const createElement = (tag, classes = [], innerHTML = '', id = '', ) => {
   return element;
 }
 
-const createCheckBoxButton = () => {
+const addProjectButton = document.querySelector('#addProjectButton');
+addProjectButton.addEventListener('click', () => {
+  const addProjectName = document.querySelector('#addProjectName').value;
+
+  if( (projectsList.findIndex(project => project.name === addProjectName)) > -1) {
+    alert('Project already exists');
+  }
+
+
+  createProject(addProjectName);
+  document.querySelector('#addProjectName').value = '';
+
+  displayProjects();
+});
+
+const deleteProjectButton = document.querySelector('#deleteProjectButton');
+deleteProjectButton.addEventListener('click', () => {
+  const deleteProjectName = document.querySelector('#deleteProjectName').value;
+
+  if( (projectsList.findIndex(project => project.name === deleteProjectName)) === -1 ) {
+    alert('Project not found');
+    document.querySelector('#deleteProjectName').value = '';
+    return;
+  }
+  
+  if(deleteProjectName === 'Default Project') {
+    alert('Cannot delete default project');
+    document.querySelector('#deleteProjectName').value = '';
+    return;
+  }
+
+  deleteProject(deleteProjectName);
+  document.querySelector('#deleteProjectName').value = '';
+
+  displayProjects();
+});
+
+const todoAddButton = document.querySelector('#todoAddButton');
+todoAddButton.addEventListener('click', () => {
+  const todoName = document.querySelector('#todoName').value;
+  const todoDescription = document.querySelector('#todoDescription').value;
+  const todoDueDate = document.querySelector('#todoDueDate').value;
+
+  const addTodoForm = document.querySelector('.addTodoForm');
+
+  createTodo(todoName, todoDescription, todoDueDate, '', addTodoForm.id);
+
+  const addTodoModal = document.querySelector('#addTodoModal');
+  addTodoModal.style.display = 'none';
+  
+  displayProjects();
+});
+
+const createAddButton = () => {
+  const addButtonDiv = createElement('div', ['container', 'plusImage']);
+  addButtonDiv.innerHTML = SVGCode;
+
+  const addTodoModal = document.querySelector('#addTodoModal');
+
+  addButtonDiv.addEventListener('click', (e) => {
+    document.querySelector('#todoName').value = '';
+    document.querySelector('#todoDescription').value = '';
+    document.querySelector('#todoDueDate').value = '';
+
+    addTodoModal.style.display = 'block';
+
+    const clickedProjectName = e.target.closest('.container.plusImage')
+    .previousElementSibling 
+    .innerHTML;
+
+    console.log(clickedProjectName);
+
+    const addTodoForm = document.querySelector('.addTodoForm');
+    addTodoForm.id = clickedProjectName;
+  });
+
+  return addButtonDiv;
+}
+
+window.onclick = (e) => {
+  const addTodoModal = document.querySelector('#addTodoModal');
+
+  if(e.target == addTodoModal) {
+    addTodoModal.style.display = 'none';
+  }
+}
+
+const createCheckBoxButton = (todoName) => {
+  const noSpaceTodoName = todoName
+  .split(' ')
+  .join('');
+
   const checkBoxContainer = createElement('div', ['container']);
 
-  const checkBoxButton = createElement('div', ['checkBoxButton']);
+  const checkBoxButton = createElement('div', ['checkBoxButton'], null, noSpaceTodoName);
 
   checkBoxContainer.addEventListener("click", (e) => {
     if(e.target.closest('.checkBoxButton')) {
+      toggleTodoComplete(e.target.closest('.container').nextElementSibling.innerHTML);
       toggleCheck(e.target.closest('.checkBoxButton'));
     }
+    
   });
+
 
   checkBoxContainer.appendChild(checkBoxButton);
 
   return checkBoxContainer;
 }
+
 
 const createTrashButton = () => {
   const trashImageDiv = createElement('div', ['container', 'trashImage']);
@@ -49,6 +145,8 @@ const createTrashButton = () => {
     .innerHTML; // this is so dumb
 
     deleteTodo(clickedTodoName);
+
+    displayProjects();
   });
 
   const trashImage = createElement('img', ['trashSVG']);
@@ -59,31 +157,67 @@ const createTrashButton = () => {
   return trashImageDiv;
 }
 
-export const displayProject = () => {
-  projectsList.forEach((project, index) => {
-    const newDiv = document.createElement('div');
-    newDiv.classList.add('container', 'project');
-    newDiv.id = `${project.name}`
+const createTodoDisplay = (todo) => {
+  const newDiv = createElement('div', ['container', 'todo']);
 
-    const projectName = document.createElement('div');
-    projectName.classList.add('projectName');
+  const todoHeaderContainer = createElement('div', ['container', 'todoHeader']);
 
+  const todoName = createElement('div', ['todoName'], `${todo.name}`);
+
+  const checkBox = createCheckBoxButton(todo.name);
+
+  const todoDescription = createElement('div', ['todoDescription'], `${todo.description}`);
+
+  const todoDate = createElement('div', ['todoDate'], `${todo.dueDate}`);
+
+  const trashImageDiv = createTrashButton();
+
+  todoHeaderContainer.appendChild(checkBox);
+  todoHeaderContainer.appendChild(todoName);
+  todoHeaderContainer.appendChild(todoDate);
+  todoHeaderContainer.appendChild(trashImageDiv);
+
+  newDiv.appendChild(todoHeaderContainer);
+
+  newDiv.appendChild(todoDescription);
+
+  return newDiv;
+}
+
+export const displayProjects = () => {
+  const oldProjectsContainer = document.querySelector('.projectsContainer');
+  if(oldProjectsContainer !== null) {
+    oldProjectsContainer.remove();
+  }
+
+  const projectsContainer = createElement('div', ['projectsContainer']);
+  document.body.appendChild(projectsContainer);
+
+  projectsList.forEach((project) => {
     const noSpaceProjectName = project.name
     .split(' ')
     .join('');
 
-    projectName.id = noSpaceProjectName;
-    projectName.innerHTML = `${project.name}`;
+    const newDiv = createElement('div', ['container', 'project'], null, project.name);
 
-    newDiv.appendChild(projectName);
+    const headerContainer = createElement('div', ['container', 'header']);
 
-    const todosContainer = document.createElement('div');
-    todosContainer.classList.add('todos-container');
-    todosContainer.id = `${noSpaceProjectName}-container`;
+    const projectName = createElement('div', ['projectName'], project.name, '', noSpaceProjectName);
 
+    const addButton = createAddButton();
+
+    headerContainer.appendChild(projectName);
+    headerContainer.appendChild(addButton);
+
+    const todosContainer = createElement('div', ['todos-container'], null, `${noSpaceProjectName}-container`);
+
+    newDiv.appendChild(headerContainer);
     newDiv.appendChild(todosContainer);
-    document.body.appendChild(newDiv);
+    // document.body.appendChild(newDiv);
+    projectsContainer.appendChild(newDiv);
   });
+
+  displayTodo();
 }
 
 export const displayTodo = () => {
@@ -96,32 +230,19 @@ export const displayTodo = () => {
     projectContainer.innerHTML = '';
 
     project.todos.forEach((todo) => {
+      const noSpaceTodoName = todo.name
+      .split(' ')
+      .join('');
 
-      const newDiv = createElement('div', ['container', 'todo']);
-
-      const todoHeaderContainer = createElement('div', ['container', 'todoHeader']);
-
-      const todoName = createElement('div', ['todoName'], `${todo.name}`);
-
-      const checkBox = createCheckBoxButton();
-
-      const todoDescription = createElement('div', ['todoDescription'], `${todo.description}`);
-
-      const todoDate = createElement('div', ['todoDate'], `${todo.dueDate}`);
-
-      const trashImageDiv = createTrashButton();
-
-      todoHeaderContainer.appendChild(checkBox);
-      todoHeaderContainer.appendChild(todoName);
-      todoHeaderContainer.appendChild(todoDate);
-      todoHeaderContainer.appendChild(trashImageDiv);
-
-      newDiv.appendChild(todoHeaderContainer);
-
-      newDiv.appendChild(todoDescription);
+      const newDiv = createTodoDisplay(todo);
 
       const projectContainer = document.querySelector(`#${noSpaceProjectName}-container`);
       projectContainer.appendChild(newDiv);
+
+      if(todo.isDone) {
+        const checkBox = document.getElementById(noSpaceTodoName);
+        toggleCheck(checkBox);
+      }
     });
   });
 };
@@ -142,21 +263,3 @@ const toggleCheck = (element) => {
     element.innerHTML = "";
   }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-

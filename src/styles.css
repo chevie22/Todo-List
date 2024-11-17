@@ -2,290 +2,335 @@
   1. Use a more-intuitive box-sizing model.
 */
 *, *::before, *::after {
-    box-sizing: border-box;
-  }
-  /*
-    2. Remove default margin
-  */
-  * {
-    margin: 0;
-  }
-  /*
-    Typographic tweaks!
-    3. Add accessible line-height
-    4. Improve text rendering
-  */
-  body {
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-  }
-  /*
-    5. Improve media defaults
-  */
-  img, picture, video, canvas, svg {
-    display: block;
-    max-width: 100%;
-  }
-  /*
-    6. Remove built-in form typography styles
-  */
-  input, button, textarea, select {
-    font: inherit;
-  }
-  /*
-    7. Avoid text overflows
-  */
-  p, h1, h2, h3, h4, h5, h6 {
-    overflow-wrap: break-word;
-  }
-  /*
-    8. Create a root stacking context
-  */
-  #root, #__next {
-    isolation: isolate;
+  box-sizing: border-box;
+}
+/*
+  2. Remove default margin
+*/
+* {
+  margin: 0;
+}
+/*
+  Typographic tweaks!
+  3. Add accessible line-height
+  4. Improve text rendering
+*/
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+/*
+  5. Improve media defaults
+*/
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+/*
+  6. Remove built-in form typography styles
+*/
+input, button, textarea, select {
+  font: inherit;
+}
+/*
+  7. Avoid text overflows
+*/
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+/*
+  8. Create a root stacking context
+*/
+#root, #__next {
+  isolation: isolate;
 }
 
 body{
-  background-color: rgb(0, 0, 0);
+background-color: rgb(0, 0, 0);
+}
+
+.modal {
+display: none;
+position: fixed;
+z-index: 1;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+overflow: auto; /* Enable scroll if needed */
+background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+border-radius: 10px;
+color: white;
+background-color: rgb(37, 37, 37);
+width: 19%;
+margin: 15% auto;
+padding: 0.9rem 1.5rem;
+font-family: "Roboto", sans-serif;
+}
+
+.addTodoForm > * {
+margin: 0.4rem 0;
 }
 
 .container{
-  display: flex;
+display: flex;
 }
 
 .container.project {
-  flex-direction: column;
-  width: 60vw;
-  border: solid 2px rgb(44, 44, 44);
-  border-radius: 10px;
-  color: white;
-  padding: 1rem 1.5rem;
-  font-family: "Rubik", sans-serif;
-  margin: 1rem 3rem;
-  justify-self: end;
+flex-direction: column;
+width: 60vw;
+border: solid 2px rgb(44, 44, 44);
+border-radius: 10px;
+color: white;
+padding: 1rem 1.5rem;
+font-family: "Rubik", sans-serif;
+margin: 1rem 3rem;
+justify-self: end;
+}
+
+.container.header {
+justify-content: space-between;
+padding-right: 1.3rem;
 }
 
 .projectName {
-  letter-spacing: 0.1px;
-  font-size: 2rem;
+letter-spacing: 0.1px;
+font-size: 2rem;
+}
+
+.container.plusImage {
+width: 1.3rem;
+cursor: pointer;
+/* margin-right: 1.3rem; */
+}
+
+.container.plusImage:hover .plusSVG {
+
+}
+
+.plusSVG:hover {
+fill: #767676;
 }
 
 .container.todo{
-  /* width: 33%; */
-  flex-direction: column;
-  margin: 0.6rem 0;
-  padding: 1rem 1.5rem;
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  border-radius: 20px;
-  background: rgb(25, 25, 25);  
+/* width: 33%; */
+flex-direction: column;
+margin: 0.6rem 0;
+padding: 1rem 1.5rem;
+font-family: "Roboto", sans-serif;
+font-weight: 400;
+border-radius: 20px;
+background: rgb(25, 25, 25);  
 }
 
 .container.todo:hover {
-  animation-name: hoverColor;
-  animation-duration: 0.15s;
-  animation-fill-mode: forwards;
+animation-name: hoverColor;
+animation-duration: 0.15s;
+animation-fill-mode: forwards;
 }
 
 @keyframes hoverColor{
-  from {
-    background: rgb(25, 25, 25);
-  }
+from {
+  background: rgb(25, 25, 25);
+}
 
-  to {
-    background: rgb(40, 40, 40);
-  }
+to {
+  background: rgb(40, 40, 40);
+}
 }
 
 .container.todo > * {
-  margin-bottom: 0.5rem;
+margin-bottom: 0.5rem;
 }
 
 .container.todoHeader {
-  /* justify-content: space-between; */
+/* justify-content: space-between; */
 }
 
 .container.todoHeader > *{
-  /* flex: 1; */
+/* flex: 1; */
 }
 
 .todoName {
-  font-family: "Rubik", sans-serif;
-  font-weight: 400;
-  font-size: 2rem;
-  color: rgb(201, 201, 201);
-  /* letter-spacing: 1.1px; */
-  flex: 1;
+font-family: "Rubik", sans-serif;
+font-weight: 400;
+font-size: 2rem;
+color: rgb(201, 201, 201);
+/* letter-spacing: 1.1px; */
+flex: 1;
 }
 
 .checkBoxButton {
-  border: 2px solid rgb(82, 82, 82);
-  height: 30px;
-  width: 30px;
-  border-radius: 10px;
-  margin-right: 1rem;
-  align-self: center;
-  cursor: pointer;
+border: 2px solid rgb(82, 82, 82);
+height: 30px;
+width: 30px;
+border-radius: 10px;
+margin-right: 1rem;
+align-self: center;
+cursor: pointer;
 }
 
 .checkBoxButton:hover {
-  background-color: rgb(96, 96, 96);
+background-color: rgb(96, 96, 96);
 }
 
 .checkedSvg {
-  width: 100%; /* Set a fixed width for the image */
-  height: auto; /* Maintain the image aspect ratio */
-  animation: revealImageAnim 0.3s ease-in forwards; /* Apply the animation */
-  user-select: none;
+width: 100%; /* Set a fixed width for the image */
+height: auto; /* Maintain the image aspect ratio */
+animation: revealImageAnim 0.3s ease-in forwards; /* Apply the animation */
+user-select: none;
 }
 
 /* Keyframe animation to reveal image */
 @keyframes revealImageAnim {
-  0% {
-    clip-path: inset(0 100% 0 0); /* Initially clip the image from the right */
-  }
-  100% {
-    clip-path: inset(0 0 0 0); /* Reveal the full image from left to right */
-  }
+0% {
+  clip-path: inset(0 100% 0 0); /* Initially clip the image from the right */
+}
+100% {
+  clip-path: inset(0 0 0 0); /* Reveal the full image from left to right */
+}
 }
 
 
 .todoDescription {
-  color: rgb(176, 176, 176);
-  font-weight: 300;
-  padding: 0 3rem;
-  /* margin-top: 0.5rem; */
+color: rgb(176, 176, 176);
+font-weight: 300;
+padding: 0 3rem;
+/* margin-top: 0.5rem; */
 }
 
 .todoDate {
-  font-style: italic;
-  /* margin-top: -0.8rem; */
-  /* margin-top: 1rem; */
-  align-self: center;
-  color: rgb(145, 145, 145);
-  font-size: 0.9rem;
-  font-weight: 300;
-  margin-right: 1rem;
+font-style: italic;
+/* margin-top: -0.8rem; */
+/* margin-top: 1rem; */
+align-self: center;
+color: rgb(145, 145, 145);
+font-size: 0.9rem;
+font-weight: 300;
+margin-right: 1rem;
 }
 
 .container.trashImage {
-  width: 2rem;
-  cursor: pointer;
+width: 2rem;
+cursor: pointer;
 }
 
 .container.trashImage > * {
-  justify-content: center;
+justify-content: center;
 }
 
 .container.trashImage:hover {
-  animation-name: trashHoverColor;
-  animation-duration: 0.15s;
-  animation-fill-mode: forwards;
+animation-name: trashHoverColor;
+animation-duration: 0.15s;
+animation-fill-mode: forwards;
 }
 
 @keyframes trashHoverColor {
-  from {
-    transform: scale(1);
-  }
+from {
+  transform: scale(1);
+}
 
-  to {
-    transform: scale(1.2);
-  }
+to {
+  transform: scale(1.2);
+}
 }
 
 .trashSVG {
-  /* width: 150%; */
+/* width: 150%; */
 }
 
 
 
 .container.button {
-  width: 35%;
-  /* min-width: 300px; */
+width: 35%;
+/* min-width: 300px; */
 }
 
 .container.button > * {
-  flex: 1;
-  margin-right: 1rem;
+flex: 1;
+margin-right: 1rem;
 }
 
 .button.editTodo{
-  border: none;
-  border-radius: 10px;
-  color: white;
-  background-color: rgb(22, 72, 119);
-  padding: 0.3em 0;
-  margin-top: 0.3rem;
+border: none;
+border-radius: 10px;
+color: white;
+background-color: rgb(22, 72, 119);
+padding: 0.3em 0;
+margin-top: 0.3rem;
 }
 
 .button.editTodo:hover{
-  animation-name: hoverEditButtonColor;
-  animation-duration: 0.15s;
-  animation-fill-mode: forwards;
+animation-name: hoverEditButtonColor;
+animation-duration: 0.15s;
+animation-fill-mode: forwards;
 }
 
 .button.editTodo:active{
-  animation-name: pressEditButton;
-  animation-duration: 0.1;
-  animation-fill-mode: forwards;
+animation-name: pressEditButton;
+animation-duration: 0.1;
+animation-fill-mode: forwards;
 }
 
 @keyframes hoverEditButtonColor{
-  from {
-    background: rgb(22, 72, 119);
-  }
+from {
+  background: rgb(22, 72, 119);
+}
 
-  to {
-    background: rgb(56, 117, 174);
-  }
+to {
+  background: rgb(56, 117, 174);
+}
 }
 
 @keyframes pressEditButton{
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(0.95);
-  }
+from {
+  transform: scale(1);
+}
+to {
+  transform: scale(0.95);
+}
 }
 
 
 .button.deleteTodo{
-  border: none;
-  border-radius: 10px;
-  color: white;
-  background-color: rgb(145, 0, 0);
-  padding: 0.3em 0;
-  margin-top: 0.3rem;
+border: none;
+border-radius: 10px;
+color: white;
+background-color: rgb(145, 0, 0);
+padding: 0.3em 0;
+margin-top: 0.3rem;
 }
 
 .button.deleteTodo:hover{
-  animation-name: hoverDeleteButtonColor;
-  animation-duration: 0.15s;
-  animation-fill-mode: forwards;
+animation-name: hoverDeleteButtonColor;
+animation-duration: 0.15s;
+animation-fill-mode: forwards;
 }
 
 .button.deleteTodo:active{
-  animation-name: pressDeleteButton;
-  animation-duration: 0.1;
-  animation-fill-mode: forwards;
+animation-name: pressDeleteButton;
+animation-duration: 0.1;
+animation-fill-mode: forwards;
 }
 
 @keyframes hoverDeleteButtonColor{
-  from {
-    background: rgb(145, 0, 0);
-  }
+from {
+  background: rgb(145, 0, 0);
+}
 
-  to {
-    background: rgb(188, 27, 27);
-  }
+to {
+  background: rgb(188, 27, 27);
+}
 }
 
 @keyframes pressDeleteButton{
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(0.95);
-  }
+from {
+  transform: scale(1);
+}
+to {
+  transform: scale(0.95);
+}
 }
